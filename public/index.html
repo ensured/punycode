@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PunyCode to Emoji</title>
     <!-- png favicon -->
+    <link rel="icon" type="image/png" href="favicon-32x32.png">
 
     <style>
         body {
@@ -260,23 +261,40 @@
 
     <script>
         const form = document.querySelector('form');
-        form.addEventListener('submit', (event) => {
+        form.addEventListener('submit', async (event) => {
             event.preventDefault();
             const input = document.querySelector('#input').value;
-            fetch('/punycode_to_unicode', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `punycode=${input}`
-            })
-                .then(response => response.text())
-                .then(data => {
-                    const output = document.querySelector('#emoji-output');
-                    output.textContent = data;
-                })
-                .catch(error => console.error(error));
+            //  check if it's an emoji
+            if (isEmoji(input)) {
+                const output = document.querySelector('#emoji-output');
+                output.textContent = "emoji!";
+                return;
+            }
+            try {
+                const response = await fetch('/punycode_to_unicode', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: `punycode=${input}`
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.text();
+                const output = document.querySelector('#emoji-output');
+                output.textContent = data;
+            } catch (error) {
+                console.error(error);
+            }
         });
+
+        function isEmoji(str) {
+            const regex = /[\uD800-\uDBFF][\uDC00-\uDFFF]/;
+            return regex.test(str);
+        }
+
     </script>
 </body>
 
