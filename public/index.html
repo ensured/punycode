@@ -314,12 +314,6 @@
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
                     const data = await response.text();
-                    if (data.includes('invalid punycode')) {
-                        outputContainer.classList.remove('visible');
-                        document.querySelector('#emoji-output').textContent = 'Please enter a valid punycode';
-                        document.querySelector('#emoji-output').style.fontSize = '.85rem !important';
-                        return;
-                    }
                     const output = document.querySelector('#emoji-output');
                     output.textContent = data;
                 } catch (error) {
@@ -330,6 +324,7 @@
                 const outputContainer = document.querySelector('#emoji-output-container');
                 outputContainer.classList.add('visible');
                 const output = document.querySelector('#emoji-output');
+                output.style.fontSize = '8rem';
                 try {
                     const response = await fetch('/punycode_to_unicode', {
                         method: 'POST',
@@ -343,12 +338,6 @@
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
                     const data = await response.text();
-                    if (data.includes('invalid punycode')) {
-                        outputContainer.classList.remove('visible');
-                        document.querySelector('#emoji-output').textContent = 'Please enter a valid punycode';
-                        document.querySelector('#emoji-output').style.fontSize = '.85rem !important';
-                        return;
-                    }
                     const output = document.querySelector('#emoji-output');
                     output.textContent = data;
                 } catch (error) {
