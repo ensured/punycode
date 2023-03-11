@@ -58,7 +58,7 @@
         }
 
         #emoji-output {
-            font-size: 8rem;
+            font-size: 6rem;
         }
 
         @import url(https://fonts.googleapis.com/css?family=Cabin:400);
@@ -231,6 +231,20 @@
             }
         }
 
+        @keyframes raiseUpDown {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
 
         #emoji-output-container {
             margin: 15px;
@@ -301,8 +315,7 @@
             const input = document.querySelector('#input').value;
             if (input === '') {
                 const outputContainer = document.querySelector('#emoji-output-container');
-                outputContainer.classList.remove('visible');
-                document.querySelector('#emoji-output-container').textContent = 'Please enter a punycode or emoji';
+                document.querySelector('#emoji-output').textContent = 'Please enter a punycode or emoji';
                 return;
             }
             if (isEmoji(input)) {
@@ -340,6 +353,7 @@
                 const outputContainer = document.querySelector('#emoji-output-container');
                 outputContainer.classList.add('visible');
                 const output = document.querySelector('#emoji-output');
+
                 try {
                     const response = await fetch('/punycode_to_unicode', {
                         method: 'POST',
@@ -367,6 +381,16 @@
                 }
             }
         });
+
+        // create a function that raises and lowers and emoji when you hover a specific emoji
+        const emojiOutput = document.querySelector('#emoji-output');
+        emojiOutput.addEventListener('mouseover', () => {
+            emojiOutput.style.animation = 'raiseUpDown 1s ease-in-out infinite alternate';
+        });
+        emojiOutput.addEventListener('mouseout', () => {
+            emojiOutput.style.animation = 'none';
+        });
+
 
         function isEmoji(str) {
             const regex = /[\uD800-\uDBFF][\uDC00-\uDFFF]/;
