@@ -129,7 +129,7 @@
 
         .webdesigntuts-workshop input {
             line-height: 40px;
-            animation: glow 900ms ease-out infinite alternate;
+            animation: glowPurple 1000ms ease-out infinite alternate;
             background: #222922;
             background: linear-gradient(#333933, #222922);
             border-color: #393;
@@ -147,9 +147,7 @@
         }
 
         .webdesigntuts-workshop input:focus {
-            border-color: rgb(157, 49, 49);
-            box-shadow: 0 0 5px rgba(255, 0, 0, 0.2), inset 0 0 5px rgba(0, 255, 0, .1), 0 2px 0 #000;
-            animation: glowRed 4200ms ease-out infinite alternate;
+            animation: glowGreen 1000ms ease-out infinite alternate;
 
         }
 
@@ -197,22 +195,10 @@
             background: linear-gradient(#393939, #292929);
             box-shadow: 0 1px 0 #000, inset 1px 0 1px #222;
             top: 1px;
-            border-color: rgb(153, 51, 51);
         }
 
-        @keyframes glowRed {
-            0% {
-                border-color: rgb(255, 0, 0);
-                box-shadow: 0 0 5px rgba(255, 0, 0, 0.2), inset 0 0 5px rgba(0, 255, 0, .1), 0 2px 0 #000;
-            }
 
-            100% {
-                border-color: rgb(188, 30, 30);
-                box-shadow: 0 0 20px rgba(255, 0, 0, 0.6), inset 0 0 10px rgba(0, 255, 0, .4), 0 2px 0 #000;
-            }
-        }
-
-        @keyframes glow {
+        @keyframes glowGreen {
             0% {
                 border-color: #393;
                 box-shadow: 0 0 5px rgba(0, 255, 0, .2), inset 0 0 5px rgba(0, 255, 0, .1), 0 2px 0 #000;
@@ -224,16 +210,24 @@
             }
         }
 
+        @keyframes glowPurple {
+            0% {
+                border-color: #939;
+                box-shadow: 0 0 5px rgba(255, 0, 255, .2), inset 0 0 5px rgba(255, 0, 255, .1), 0 2px 0 #000;
+            }
+
+            100% {
+                border-color: #f9f;
+                box-shadow: 0 0 20px rgba(255, 0, 255, .6), inset 0 0 10px rgba(255, 0, 255, .4), 0 2px 0 #000;
+            }
+        }
+
+
         #emoji-output-container {
             margin: 15px;
             color: white;
         }
 
-        @media only screen and (max-width: 600px) {
-            #emoji-output {
-                font-size: 3rem;
-            }
-        }
 
         section {
             width: 90%;
@@ -248,15 +242,41 @@
             box-shadow: 0 0 10px #800080a8;
             padding: 15px 20px;
         }
+
+        label {
+            font-size: .875rem;
+            display: block;
+            margin-bottom: 5px;
+            color: rgba(255, 255, 255, 1);
+        }
+
+        input[type="placeholder"] {
+            color: rgb(255, 0, 0);
+        }
+
+        @media only screen and (max-width: 600px) {
+            #emoji-output {
+                font-size: 3rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 
 <body>
     <section class="webdesigntuts-workshop">
         <form action="" method="">
-            <h1>PunyCode to Emoji</h1>
+            <h1>Punycode &rarr; Emoji
+                <br>
+                <small>or</small>
+                <br>
+                Emoji &rarr; Punycode
+            </h1>
             <form>
-                <input type="text" id="input" placeholder="punycode">
+                <input type="text" id="input" placeholder="punycode or emoji">
                 <button>Convert</button>
             </form>
             <div id="emoji-output-container">
@@ -273,7 +293,7 @@
             if (input === '') {
                 const outputContainer = document.querySelector('#emoji-output-container');
                 outputContainer.classList.remove('visible');
-                document.querySelector('#emoji-output-container').textContent = '';
+                document.querySelector('#emoji-output-container').textContent = 'Please enter a punycode or emoji';
                 return;
             }
             if (isEmoji(input)) {
