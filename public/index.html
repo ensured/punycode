@@ -16,6 +16,7 @@
             justify-content: center;
             height: 95vh;
             background-color: #151515;
+            overflow-x: hidden;
         }
 
         h1 {
@@ -229,8 +230,16 @@
 
         @media only screen and (max-width: 600px) {
             #emoji-output {
-                font-size: 3.5rem;
+                font-size: 3rem;
             }
+        }
+
+        section {
+            width: 90%;
+            margin: 0 auto;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            overflow-x: hidden !important;
         }
     </style>
 </head>
