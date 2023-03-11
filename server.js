@@ -4,7 +4,7 @@ const punycode = require('punycode');
 const app = express();
 
 // Constants
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 // middleware to parse request body
 app.use(express.urlencoded({ extended: true }));
