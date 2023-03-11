@@ -382,15 +382,6 @@
             }
         });
 
-        // create a function that raises and lowers and emoji when you hover a specific emoji
-        const emojiOutput = document.querySelector('#emoji-output');
-        emojiOutput.addEventListener('mouseover', () => {
-            emojiOutput.style.animation = 'raiseUpDown 1s ease-in-out infinite alternate';
-        });
-        emojiOutput.addEventListener('mouseout', () => {
-            emojiOutput.style.animation = 'none';
-        });
-
 
         function isEmoji(str) {
             const regex = /[\uD800-\uDBFF][\uDC00-\uDFFF]/;
