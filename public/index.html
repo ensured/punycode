@@ -242,6 +242,12 @@
             word-wrap: break-word;
             overflow-x: hidden !important;
         }
+
+        #emoji-output-container.visible {
+            background-color: #606060;
+            box-shadow: 0 0 10px #800080a8;
+            padding: 15px 20px;
+        }
     </style>
 </head>
 
@@ -249,7 +255,7 @@
     <section class="webdesigntuts-workshop">
         <form action="" method="">
             <h1>PunyCode to Emoji</h1>
-            <form method="POST" action="/punycode_to_unicode">
+            <form>
                 <input type="text" id="input" placeholder="punycode">
                 <button>Convert</button>
             </form>
@@ -264,29 +270,59 @@
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
             const input = document.querySelector('#input').value;
-            //  check if it's an emoji
-            if (isEmoji(input)) {
-                const output = document.querySelector('#emoji-output');
-                output.textContent = "emoji!";
+            if (input === '') {
+                const outputContainer = document.querySelector('#emoji-output-container');
+                outputContainer.classList.remove('visible');
+                document.querySelector('#emoji-output-container').textContent = '';
                 return;
             }
-            try {
-                const response = await fetch('/punycode_to_unicode', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: `punycode=${input}`
-                });
+            if (isEmoji(input)) {
+                const outputContainer = document.querySelector('#emoji-output-container');
+                outputContainer.classList.add('visible');
+                const output =
+                    output.style.fontSize = '5rem';
+                try {
+                    const response = await fetch('/unicode_to_punycode', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: `unicode=${input}`
+                    });
 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const data = await response.text();
+                    const output = document.querySelector('#emoji-output');
+                    output.textContent = data;
+                } catch (error) {
+                    console.error(error);
                 }
-                const data = await response.text();
+            }
+            else {
+                const outputContainer = document.querySelector('#emoji-output-container');
+                outputContainer.classList.add('visible');
                 const output = document.querySelector('#emoji-output');
-                output.textContent = data;
-            } catch (error) {
-                console.error(error);
+                output.style.fontSize = '8rem';
+                try {
+                    const response = await fetch('/punycode_to_unicode', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: `punycode=${input}`
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const data = await response.text();
+                    const output = document.querySelector('#emoji-output');
+                    output.textContent = data;
+                } catch (error) {
+                    console.error(error);
+                }
             }
         });
 

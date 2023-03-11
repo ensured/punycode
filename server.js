@@ -21,7 +21,17 @@ app.post('/punycode_to_unicode', (req, res) => {
   } catch (e) {
     res.send('Invalid Punycode');
   }
-  
+});
+
+// route to handle Unicode to Punycode conversion and return the punycode string
+app.post('/unicode_to_punycode', (req, res) => {
+  const unicodeStr = req.body.unicode;
+  try {
+    const encodedStr = punycode.toASCII(unicodeStr);
+    res.send(encodedStr);
+  } catch (e) {
+    res.send('Invalid Unicode');
+  }
 });
 
 app.listen(PORT, () => {
