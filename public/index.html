@@ -273,8 +273,12 @@
             color: rgba(255, 255, 255, 1);
         }
 
-        input[type="placeholder"] {
-            color: rgb(255, 0, 0);
+        input::placeholder {
+            color: #eeeeee !important;
+        }
+
+        input {
+            box-shadow: inset 0 0 15px #000000 !important;
         }
 
         @media only screen and (max-width: 600px) {

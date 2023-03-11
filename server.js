@@ -23,12 +23,11 @@ app.post('/punycode_to_unicode', (req, res) => {
   }
 });
 
-// route to handle Unicode to Punycode conversion and return the punycode string
+// route to handle Unicode to Punycode conversion
 app.post('/unicode_to_punycode', (req, res) => {
   const unicodeStr = req.body.unicode;
   try {
     const encodedStr = punycode.toASCII(unicodeStr);
-    console.log(encodedStr)
     res.send(encodedStr);
   } catch (e) {
     res.send('Invalid Unicode');
