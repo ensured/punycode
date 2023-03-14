@@ -20,7 +20,10 @@ app.post('/punycode_to_unicode', (req, res) => {
   }
   try {
     const decodedStr = punycode.decode(punycodeStr);
-    res.send(decodedStr + `[${decodedStr.length}]`);
+    res.send({
+      'decodedStr': decodedStr,
+      "charLength": `[${decodedStr.length}]`
+    });
   } catch (e) {
     res.send('Invalid Punycode');
   }
@@ -30,7 +33,10 @@ app.post('/unicode_to_punycode', (req, res) => {
   const unicodeText = req.body.unicode;
   try {
     const punycodeStr = punycode.encode(unicodeText);
-    res.send(`xn--${punycodeStr}`);
+    const decodedStr = punycode.decode(punycodeStr);
+    res.send({
+      'punycodeStr': `xn--${punycodeStr}`,
+      "charLength": `[${decodedStr} is ${unicodeText.length} characters long]`});
   } catch (e) {
     res.send('Invalid Unicode');
   }

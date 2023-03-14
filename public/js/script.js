@@ -30,14 +30,11 @@ form.addEventListener('submit', async (event) => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            const data = await response.text();
-            if (data.includes('invalid punycode')) {
-                outputContainer.classList.remove('visible');
-                document.querySelector('#emoji-output').textContent = 'Please enter a valid punycode';
-                return;
-            }
+            const data = await response.json();
+            let punycodeStr = data.punycodeStr;
+            let charLength = data.charLength;
             const output = document.querySelector('#emoji-output');
-            output.textContent = data;
+            output.innerHTML = punycodeStr + `<br>${charLength}`;
         } catch (error) {
             console.error(error);
         }
@@ -58,14 +55,17 @@ form.addEventListener('submit', async (event) => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            const data = await response.text();
-            if (data.includes('invalid punycode')) {
+            let data = await response.json();
+            decodedStr = data.decodedStr;
+            charLength = data.charLength;
+
+            if (decodedStr.includes('invalid punycode')) {
                 outputContainer.classList.remove('visible');
                 document.querySelector('#emoji-output').textContent = 'Please enter a valid punycode';
                 return;
             }
             const output = document.querySelector('#emoji-output');
-            output.textContent = data;
+            output.innerHTML = decodedStr + charLength;
         } catch (error) {
             console.error(error);
         }
