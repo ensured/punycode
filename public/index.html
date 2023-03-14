@@ -13,20 +13,26 @@
 <body>
     <section class="webdesigntuts-workshop">
         <form action="" method="">
-            <h1>Punycode &rarr; Emoji
+            <h1>Punycode &rarr; Unicode
                 <br>
                 <small>or</small>
                 <br>
-                Emoji &rarr; Punycode
+                Unicode &rarr; Punycode
             </h1>
             <form>
-                <input type="text" id="input" placeholder="punycode or emoji">
+                <label for="input"><small>supports all unicode/punycode ranges</small></label>
+                <input type="text" id="input" placeholder="punycode or unicode/emoji">
+
                 <button>Convert</button>
+
             </form>
             <div id="emoji-output-container">
                 <div id="emoji-output"></div>
             </div>
         </form>
+        <div>
+
+        </div>
     </section>
 
     <script src="js/script.js"></script>

@@ -1,9 +1,6 @@
-function containsNonLatinCodepoints(s) {
-    return /^([A-Za-z\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s]*)$/.test(s);
-}
 
-function isEmoji(str) {
-    const regex = /[\uD800-\uDBFF][\uDC00-\uDFFF]/;
+function checkIfAnyCharNotInAsciiSet(str) {
+    var regex = /[^\x00-\x7F]+/;
     return regex.test(str);
 }
 
@@ -17,7 +14,7 @@ form.addEventListener('submit', async (event) => {
         return;
     }
 
-    if (isEmoji(input) || containsNonLatinCodepoints(input)) {
+    if (checkIfAnyCharNotInAsciiSet(input)) {
         const outputContainer = document.querySelector('#emoji-output-container');
         outputContainer.classList.add('visible');
         const output = document.querySelector('#emoji-output');
