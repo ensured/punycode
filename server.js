@@ -6,7 +6,7 @@ const app = express();
 // Constants
 const PORT = process.env.PORT || 8080;
 
-// middleware to parse req.body.name
+// middleware to parse req.body.<name>
 app.use(express.urlencoded({ extended: true }));
 
 // serve static files

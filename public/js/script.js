@@ -21,7 +21,6 @@ form.addEventListener('submit', async (event) => {
         const outputContainer = document.querySelector('#emoji-output-container');
         outputContainer.classList.add('visible');
         const output = document.querySelector('#emoji-output');
-        output.style.fontSize = '5rem';
         try {
             const response = await fetch('/unicode_to_punycode', {
                 method: 'POST',
@@ -38,7 +37,6 @@ form.addEventListener('submit', async (event) => {
             if (data.includes('invalid punycode')) {
                 outputContainer.classList.remove('visible');
                 document.querySelector('#emoji-output').textContent = 'Please enter a valid punycode';
-                document.querySelector('#emoji-output').style.fontSize = '.85rem !important';
                 return;
             }
             const output = document.querySelector('#emoji-output');
@@ -67,7 +65,6 @@ form.addEventListener('submit', async (event) => {
             if (data.includes('invalid punycode')) {
                 outputContainer.classList.remove('visible');
                 document.querySelector('#emoji-output').textContent = 'Please enter a valid punycode';
-                document.querySelector('#emoji-output').style.fontSize = '.85rem !important';
                 return;
             }
             const output = document.querySelector('#emoji-output');
