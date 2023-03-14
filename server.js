@@ -12,8 +12,17 @@ app.use(express.urlencoded({ extended: true }));
 // serve static files
 app.use(express.static('public'));
 
-function fancyCount(str){
-  return Array.from(str.split(/[\ufe00-\ufe0f]/).join("")).length;
+
+// create a function that counts the codepoints from the given unicode
+function fancyCount(str) {
+  let count = 0;
+  for (let i = 0; i < str.length; i++) {
+    if (str.codePointAt(i) > 0xffff) {
+      i++;
+    }
+    count++;
+  }
+  return count;
 }
 
 // route to handle Punycode to Unicode conversion
