@@ -157,3 +157,56 @@ label {
     color: rebeccapurple;
     cursor: pointer;
 }
+@keyframes hover {
+    0% {
+      transform: scale(1);
+      transform: rotate(5deg);
+
+    }
+    50% {
+        transform: scale(1.1);
+        transform: rotate(-5deg);
+
+        }
+    100% {
+        transform: scale(1);
+        transform: rotate(5deg);
+        }
+  }
+  @keyframes click {
+    0% {
+      background-color: rebeccapurple;
+
+    }
+    100% {
+        background-color: rebeccapurple;
+        }
+
+}
+/* table keys */
+.open-table-button {
+    animation: hover 4s infinite;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 9999;
+  }
+  .key-map-table {
+    display: none;
+    position: fixed;
+    bottom: 150px;
+    left: 50%;
+    transform: translate(-50%, 35%);
+    background-color: white;
+    border: 1px solid black;
+    z-index: 9998;
+    padding: 40px;
+    border-radius: 10px;
+    width: 400px;
+  }
+  .key-map-table.show {
+    display: table;
+    /* animation: click no repeat though */
+    background-color: #333;
+  }
+ 

@@ -55,16 +55,16 @@ function getCodePointsAndCountOfCodepoints(str) {
     const hexCode = decimalToHexadecimal(codepoint);
     const decimalCode = parseInt(hexCode, 16);
     if (hexCode === '200d') {
-      emoji = 'zwj (zero width joiner)'
+      emoji = 'zwj'
     } 
     else if (hexCode === 'fe0f') {
-      emoji = 'vs16 (variation selector-16)'
+      emoji = 'vs16'
     }
     else if (hexCode === 'fe0e') {
-      emoji = 'vs15 (variation selector-15)'
+      emoji = 'vs15'
     }
     else if (hexCode === '200c') {
-      emoji = 'zwnj (zero width non-joiner)'
+      emoji = 'zwnj'
     } else {
       emoji = String.fromCodePoint(decimalCode);
     }

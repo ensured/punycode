@@ -1,4 +1,13 @@
 
+const button = document.querySelector('.open-table-button');
+const table = document.querySelector('.key-map-table');
+
+button.addEventListener('click', function() {
+  table.classList.toggle('show');
+});
+
+
+
 function checkIfAnyCharNotInAsciiSet(str) {
     var regex = /[^\x00-\x7F]+/;
     return regex.test(str);
