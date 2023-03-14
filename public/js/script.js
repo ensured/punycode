@@ -9,15 +9,15 @@ form.addEventListener('submit', async (event) => {
     event.preventDefault();
     const input = document.querySelector('#input').value;
     if (input === '') {
-        const outputContainer = document.querySelector('#emoji-output-container');
-        document.querySelector('#emoji-output').textContent = 'Please enter a punycode or emoji';
+        const outputContainer = document.querySelector('#output-container');
+        document.querySelector('#output').textContent = 'Please enter a punycode or emoji';
         return;
     }
 
     if (checkIfAnyCharNotInAsciiSet(input)) {
-        const outputContainer = document.querySelector('#emoji-output-container');
+        const outputContainer = document.querySelector('#output-container');
         outputContainer.classList.add('visible');
-        const output = document.querySelector('#emoji-output');
+        const output = document.querySelector('#output');
         try {
             const response = await fetch('/unicode_to_punycode', {
                 method: 'POST',
@@ -33,16 +33,16 @@ form.addEventListener('submit', async (event) => {
             const data = await response.json();
             let punycodeStr = data.punycodeStr;
             let charLength = data.charLength;
-            const output = document.querySelector('#emoji-output');
-            output.innerHTML = punycodeStr + `<br>${charLength}`;
+            const output = document.querySelector('#output');
+            output.innerHTML = punycodeStr + charLength
         } catch (error) {
             console.error(error);
         }
     }
     else {
-        const outputContainer = document.querySelector('#emoji-output-container');
+        const outputContainer = document.querySelector('#output-container');
         outputContainer.classList.add('visible');
-        const output = document.querySelector('#emoji-output');
+        const output = document.querySelector('#output');
         try {
             const response = await fetch('/punycode_to_unicode', {
                 method: 'POST',
@@ -59,12 +59,7 @@ form.addEventListener('submit', async (event) => {
             decodedStr = data.decodedStr;
             charLength = data.charLength;
 
-            if (decodedStr.includes('invalid punycode')) {
-                outputContainer.classList.remove('visible');
-                document.querySelector('#emoji-output').textContent = 'Please enter a valid punycode';
-                return;
-            }
-            const output = document.querySelector('#emoji-output');
+            const output = document.querySelector('#output');
             output.innerHTML = decodedStr + charLength;
         } catch (error) {
             console.error(error);

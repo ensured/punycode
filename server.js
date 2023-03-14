@@ -12,17 +12,39 @@ app.use(express.urlencoded({ extended: true }));
 // serve static files
 app.use(express.static('public'));
 
+function decimalToHexadecimal(decimal) {
+  const hex = decimal.toString(16);
+  return hex;
+}
 
 // create a function that counts the codepoints from the given unicode
-function fancyCount(str) {
-  let count = 0;
+function getCodePointsAndCountOfCodepoints(str) {
+  let codepoints = []
+  let emojis = []
   for (let i = 0; i < str.length; i++) {
-    if (str.codePointAt(i) > 0xffff) {
-      i++;
+    let emoji
+    const codepoint = str.codePointAt(i);
+    codepoints.push(decimalToHexadecimal(codepoint));
+    const hexCode = decimalToHexadecimal(codepoint);
+    const decimalCode = parseInt(hexCode, 16);
+    if (hexCode === '200d') {
+      emoji = 'zwj (zero width joiner)'
+    } 
+    else if (hexCode === 'fe0f') {
+      emoji = 'vs16 (variation selector-16)'
     }
-    count++;
+    else if (hexCode === 'fe0e') {
+      emoji = 'vs15 (variation selector-15)'
+    }
+    else if (hexCode === '200c') {
+      emoji = 'zwnj (zero width non-joiner)'
+    } else {
+      emoji = String.fromCodePoint(decimalCode);
+    }
+    emojis.push(emoji);
+    if (codepoint > 0xFFFF) i++;
   }
-  return count;
+  return `<br>[${codepoints.length} codepoints]<br>` + codepoints + `<br>(${emojis})`;
 }
 
 // route to handle Punycode to Unicode conversion
@@ -35,7 +57,7 @@ app.post('/punycode_to_unicode', (req, res) => {
     const decodedStr = punycode.decode(punycodeStr);
     res.send({
       'decodedStr': decodedStr,
-      "charLength": `[${fancyCount(decodedStr)}]`
+      "charLength": getCodePointsAndCountOfCodepoints(decodedStr)
     });
   } catch (e) {
     res.send('Invalid Punycode');
@@ -45,13 +67,13 @@ app.post('/punycode_to_unicode', (req, res) => {
 
 app.post('/unicode_to_punycode', (req, res) => {
   const unicodeText = req.body.unicode;
-  const count = fancyCount(unicodeText);
+  const count = getCodePointsAndCountOfCodepoints(unicodeText);
   try {
     const punycodeStr = punycode.encode(unicodeText);
-    const decodedStr = punycode.decode(punycodeStr);
     res.send({
       'punycodeStr': `xn--${punycodeStr}`,
-      "charLength": `[${decodedStr} is ${count} characters long]`});
+      "charLength": count
+  });
   } catch (e) {
     res.send('Invalid Unicode');
   }

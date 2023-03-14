@@ -11,29 +11,23 @@
 </head>
 
 <body>
-    <section class="webdesigntuts-workshop">
-        <form action="" method="">
-            <h1>Unicode &rarr; Unicode
-                <br>
-                <small>or</small>
-                <br>
-                Unicode &rarr; Punycode
-            </h1>
-            <form>
-                <label for="input"><small>supports all unicode/punycode ranges</small></label>
-                <input type="text" id="input" placeholder="punycode or unicode/emoji">
-
-                <button>Convert</button>
-
-            </form>
-            <div id="emoji-output-container">
-                <div id="emoji-output"></div>
-            </div>
+    <div id="form-container">
+        <h1>Unicode &rarr; Unicode
+            <br>
+            <small>or</small>
+            <br>
+            Unicode &rarr; Punycode
+        </h1>
+        <form>
+            <label for="input"><small>supports all unicode/punycode ranges</small></label>
+            <input type="text" id="input" placeholder="punycode or unicode/emoji">
+            <button id="convert-btn">Convert</button>
         </form>
-        <div>
 
-        </div>
-    </section>
+    </div>
+    <div id="output-container">
+        <div id="output"></div>
+    </div>
 
     <script src="js/script.js"></script>
 </body>
