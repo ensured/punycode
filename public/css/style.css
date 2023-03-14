@@ -91,16 +91,13 @@ button:hover {
     margin-right: 10px;
     cursor: pointer;
 }
-
-/* #copy-btn:hover {
-    background-color: #6a0dad;
+#header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
 }
 
-#copied-msg {
-    display: none;
-    color: #bdff00;
-    font-size: 0.9em;
-} */
 @media screen and (max-width: 519px) {
     h1 {
         font-size: 1.7em;

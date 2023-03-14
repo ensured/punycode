@@ -11,15 +11,18 @@
 </head>
 
 <body>
+
     <div id="form-container">
-        <h1>Unicode &rarr; Unicode
-            <br>
-            <small>or</small>
-            <br>
-            Unicode &rarr; Punycode
-        </h1>
+        <div id="header">
+            <h1>Punycode &rarr; Unicode
+                <small>or</small><br>
+                Unicode &rarr; Punycode
+            </h1>
+        </div>
         <form>
-            <label for="input"><small>supports all unicode/punycode ranges</small></label>
+            <label for="input"><small>*supports all unicode/punycode ranges</small><br>
+                <small>*shows all the codepoints in the emoji</small>
+            </label>
             <input type="text" id="input" placeholder="punycode or unicode/emoji">
             <button id="convert-btn">Convert</button>
         </form>
