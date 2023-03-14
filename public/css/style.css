@@ -152,3 +152,8 @@ label {
     margin: 0px;
     max-width: 179px;
 }
+.link {
+    text-decoration: underline;
+    color: rebeccapurple;
+    cursor: pointer;
+}

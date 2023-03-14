@@ -84,7 +84,7 @@ app.post('/punycode_to_unicode', (req, res) => {
   try {
     const decodedStr = punycode.decode(punycodeStr);
     const handleAvail = checkIsHandleAvail(`xn--${punycodeStr}`).then(x => { res.send({
-      'decodedStr': `${decodedStr} avail: <a href="https://handle.me/xn--${punycodeStr}">${x}</a>`,
+      'decodedStr': `${decodedStr} avail: <a class="link" href="https://handle.me/xn--${punycodeStr}">${x}</a>`,
       "charLength": getCodePointsAndCountOfCodepoints(decodedStr)
     });
   });
@@ -101,7 +101,7 @@ app.post('/unicode_to_punycode', (req, res) => {
   try {
     const punycodeStr = punycode.encode(unicodeText);
     const handleAvail = checkIsHandleAvail(`xn--${punycodeStr}`).then(x => { res.send({
-      'punycodeStr': `xn--${punycodeStr} avail: <a href="https://handle.me/xn--${punycodeStr}">${x}</a>`,
+      'punycodeStr': `xn--${punycodeStr} avail: <a class="link" href="https://handle.me/xn--${punycodeStr}">${x}</a>`,
       "charLength": count
     });
   });
