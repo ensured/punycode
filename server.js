@@ -26,7 +26,7 @@ app.post('/punycode_to_unicode', (req, res) => {
     const decodedStr = punycode.decode(punycodeStr);
     res.send({
       'decodedStr': decodedStr,
-      "charLength": `[${decodedStr.length}]`
+      "charLength": `[${fancyCount(decodedStr)}]`
     });
   } catch (e) {
     res.send('Invalid Punycode');
