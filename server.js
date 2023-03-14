@@ -84,7 +84,7 @@ app.post('/punycode_to_unicode', (req, res) => {
   try {
     const decodedStr = punycode.decode(punycodeStr);
     const handleAvail = checkIsHandleAvail(`xn--${punycodeStr}`).then(x => { res.send({
-      'decodedStr': `${decodedStr} avail: <a href="https://handle.me/xn--${punycodeStr}">${x}</a><br>`,
+      'decodedStr': `${decodedStr} avail: <a href="https://handle.me/xn--${punycodeStr}">${x}</a>`,
       "charLength": getCodePointsAndCountOfCodepoints(decodedStr)
     });
   });
