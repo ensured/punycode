@@ -15,8 +15,6 @@ body {
 
 h1 {
     font-size: 2em;
-    margin-top: 0;
-    margin-bottom: 20px;
     text-align: center;
 }
 
@@ -31,8 +29,11 @@ form {
 }
 
 label {
+    margin-top: 15px;
     display: block;
     margin-bottom: 10px;
+    line-height: .6;
+    margin-bottom:3px;
 }
 
 input {
@@ -95,7 +96,6 @@ button:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 5px;
 }
 
 @media screen and (max-width: 519px) {
@@ -126,3 +126,11 @@ button:hover {
         font-size: 3em;
     }
 }
+#header {
+  background-color: #333; /* dark gray */
+  padding: 1.5rem;
+  text-align: center;
+  border-radius: 4px;
+  border: .01px solid #fff;
+}
+
