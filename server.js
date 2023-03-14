@@ -12,6 +12,10 @@ app.use(express.urlencoded({ extended: true }));
 // serve static files
 app.use(express.static('public'));
 
+function fancyCount(str){
+  return Array.from(str.split(/[\ufe00-\ufe0f]/).join("")).length;
+}
+
 // route to handle Punycode to Unicode conversion
 app.post('/punycode_to_unicode', (req, res) => {
   let punycodeStr = req.body.punycode;
@@ -29,14 +33,16 @@ app.post('/punycode_to_unicode', (req, res) => {
   }
 });
 
+
 app.post('/unicode_to_punycode', (req, res) => {
   const unicodeText = req.body.unicode;
+  const count = fancyCount(unicodeText);
   try {
     const punycodeStr = punycode.encode(unicodeText);
     const decodedStr = punycode.decode(punycodeStr);
     res.send({
       'punycodeStr': `xn--${punycodeStr}`,
-      "charLength": `[${decodedStr} is ${unicodeText.length} characters long]`});
+      "charLength": `[${decodedStr} is ${count} characters long]`});
   } catch (e) {
     res.send('Invalid Unicode');
   }
